@@ -1,5 +1,5 @@
 import cv2
-from pyzbar.pyzbar import decode
+from pyzbar.pyzbar import decode, ZBarSymbol
 
 def decode_qr_from_frame(frame):
     """
@@ -14,7 +14,7 @@ def decode_qr_from_frame(frame):
     blur = cv2.GaussianBlur(gray, (3, 3), 0)
 
     # decode qr
-    qr_codes = decode(blur)
+    qr_codes = decode(blur, symbols=[ZBarSymbol.QRCODE])
 
     if not qr_codes:
         return None

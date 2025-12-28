@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
-from pyzbar.pyzbar import decode
+from pyzbar.pyzbar import decode, ZBarSymbol
+
 
 def preprocess(frame):
     """
@@ -23,7 +24,7 @@ def preprocess(frame):
 
 
 def main():
-    cap = cv2.VideoCapture(0)  # 0 = default webcam
+    cap = cv2.VideoCapture(0)
 
     if not cap.isOpened():
         print("❌ Camera tidak bisa dibuka")
@@ -39,13 +40,13 @@ def main():
 
         processed = preprocess(frame)
 
-        qr_codes = decode(processed)
+        # 🔒 QR ONLY
+        qr_codes = decode(processed, symbols=[ZBarSymbol.QRCODE])
 
         for qr in qr_codes:
             qr_data = qr.data.decode("utf-8")
             x, y, w, h = qr.rect
 
-            # Bounding box
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
             cv2.putText(
