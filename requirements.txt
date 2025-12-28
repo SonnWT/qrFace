@@ -1,0 +1,6 @@
+opencv-python
+numpy
+insightface
+faiss-cpu
+pyzbar
+python-multipart
