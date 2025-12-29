@@ -1,5 +1,4 @@
 import cv2
-from pyzbar.pyzbar import decode, ZBarSymbol
 
 def decode_qr_from_frame(frame):
     """
@@ -7,19 +6,14 @@ def decode_qr_from_frame(frame):
     Return: string QR atau None
     """
 
-    # ubah jadi gray
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    detector = cv2.QRCodeDetector()
 
-    # gaussian blue (reduce noise)
-    blur = cv2.GaussianBlur(gray, (3, 3), 0)
+    data, points, _ = detector.detectAndDecode(frame)
 
-    # decode qr
-    qr_codes = decode(blur, symbols=[ZBarSymbol.QRCODE])
-
-    if not qr_codes:
+    if data == "":
         return None
 
-    return qr_codes[0].data.decode("utf-8")
+    return data
 
 
 # CARA PAKAI (taruh di file yang berbeda)

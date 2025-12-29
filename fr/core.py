@@ -1,6 +1,6 @@
 import numpy as np
-from core.arcface import extract_embedding
-from core.faiss_db import get_embedding_by_user_id, cosine_similarity
+from utils.arcface import extract_embedding
+from utils.faiss_db import get_embedding_by_user_id, cosine_similarity
 
 
 def verify_face_for_user(image, user_id):
@@ -12,25 +12,15 @@ def verify_face_for_user(image, user_id):
     # Extract embedding dari image baru
     new_emb = extract_embedding(image)
     if new_emb is None:
-        return {
-            "success": False,
-            "message": "Face not detected"
-        }
+        return f"{False}#"
 
     # Ambil embedding user dari database
     stored_emb = get_embedding_by_user_id(user_id)
     if stored_emb is None:
-        return {
-            "success": False,
-            "message": "User not registered"
-        }
+        return f"{False}#"
 
     # Hitung similarity
     confidence = cosine_similarity(new_emb, stored_emb)
 
     # returnnya bisa disesuaikan dengan keinginan core
-    return {
-        "success": True,
-        "user_id": user_id,
-        "confidence": float(confidence)
-    }
+    return f"{True}#{float(confidence)}"

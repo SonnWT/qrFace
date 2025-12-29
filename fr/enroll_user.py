@@ -1,6 +1,6 @@
 import cv2
-from core.arcface import extract_embedding
-from core.faiss_db import add_user_embedding
+from utils.arcface import extract_embedding
+from utils.faiss_db import add_user_embedding
 
 print("=== FACE ENROLLMENT ===")
 user_id = input("Masukkan user_id: ").strip()
