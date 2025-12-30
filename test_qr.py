@@ -12,15 +12,7 @@ def preprocess(frame):
     # Reduce noise
     blur = cv2.GaussianBlur(gray, (3, 3), 0)
 
-    # Adaptive threshold (bagus untuk cahaya tidak stabil)
-    thresh = cv2.adaptiveThreshold(
-        blur, 255,
-        cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-        cv2.THRESH_BINARY,
-        11, 2
-    )
-
-    return thresh
+    return blur
 
 
 def main():
